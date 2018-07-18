@@ -1,0 +1,204 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.scalabigdata</groupId>
+  <artifactId>scala-big-data</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>${project.artifactId}</name>
+  <description>All about scala to Big Data</description>
+  <inceptionYear>2018</inceptionYear>
+
+  <!-- THE POM BIG DATA VERSION FOR SCALA !!! -->
+
+
+  <properties>
+    
+    <!-- Scala variables -->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <encoding>UTF-8</encoding>
+    <scala.version>2.11.8</scala.version>
+    <scala.compat.version>2.11</scala.compat.version>
+    <scala.maven.plugin.version>3.3.2</scala.maven.plugin.version>
+    
+
+    <!-- Big data variables -->
+    <spark.core.version>2.2.0</spark.core.version>
+    <!--
+    <hbase.version>1.0.1</hbase.version>
+    -->
+    
+
+    <!-- XML/SOAP variables -->
+    <xml.version>2.11.0-M4</xml.version>
+    <scalaxb.version>1.5.0</scalaxb.version>
+    <scalaxb.maven.plugin.version>1.5.0</scalaxb.maven.plugin.version>
+    <scalaxb.maven.plugin.packagename>correios</scalaxb.maven.plugin.packagename>
+    
+
+    <!-- Tests variables -->
+    <junit.version>4.12</junit.version>
+    <scalatest.version>3.0.5</scalatest.version>
+    <spec2.version>4.2.0</spec2.version>
+    <maven.surefire.plugin.version>2.21.0</maven.surefire.plugin.version>
+    <scalatest.maven.plugin.version>2.0.0</scalatest.maven.plugin.version>
+    <file.reports>TestSuiteReport.txt</file.reports>
+    <!-- Comma separated list of JUnit test class names to execute -->
+    <junit.execute>samples.AppTest</junit.execute>
+    
+  </properties>
+  
+
+  <dependencies>
+      
+    <!-- Scala libraries -->
+    <dependency>
+      <groupId>org.scala-lang</groupId>
+      <artifactId>scala-library</artifactId>
+      <version>${scala.version}</version>
+    </dependency>
+    
+
+    <!-- Big Data libraries -->
+    <dependency>
+        <groupId>org.apache.spark</groupId>
+        <artifactId>spark-core_${scala.compat.version}</artifactId>
+        <version>${spark.core.version}</version>
+    </dependency>
+
+    
+    <!-- XML/SOAP libraries -->
+    <dependency>
+        <groupId>org.scala-lang</groupId>
+        <artifactId>scala-xml</artifactId>
+        <version>${xml.version}</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.scalaxb</groupId>
+        <artifactId>scalaxb-maven-plugin</artifactId>
+        <version>${scalaxb.version}</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.scalaxb</groupId>
+        <artifactId>scalaxb_${scala.compat.version}</artifactId>
+        <version>${scalaxb.version}</version>
+    </dependency>
+
+    
+    <!-- Test libraries -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.scalatest</groupId>
+      <artifactId>scalatest_${scala.compat.version}</artifactId>
+      <version>${scalatest.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.specs2</groupId>
+      <artifactId>specs2-core_${scala.compat.version}</artifactId>
+      <version>${spec2.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.specs2</groupId>
+      <artifactId>specs2-junit_${scala.compat.version}</artifactId>
+      <version>${spec2.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+  </dependencies>
+  
+
+  <build>
+    <sourceDirectory>src/main/scala</sourceDirectory>
+    <testSourceDirectory>src/test/scala</testSourceDirectory>
+    
+    <plugins>
+
+      <!-- Scala plugins -->
+      <plugin>
+        <!-- The scala most used plugin for maven: see http://davidb.github.com/scala-maven-plugin -->
+        <groupId>net.alchim31.maven</groupId>
+        <artifactId>scala-maven-plugin</artifactId>
+        <version>${scala.maven.plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+              <goal>testCompile</goal>
+            </goals>
+            <configuration>
+              <args>
+                <arg>-dependencyfile</arg>
+                <arg>${project.build.directory}/.scala_dependencies</arg>
+              </args>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      
+
+      <!-- Tests plugins -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven.surefire.plugin.version}</version>
+        <configuration>
+          <!-- Tests will be run with scalatest-maven-plugin instead -->
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.scalatest</groupId>
+        <artifactId>scalatest-maven-plugin</artifactId>
+        <version>${scalatest.maven.plugin.version}</version>
+        <configuration>
+          <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+          <junitxml>.</junitxml>
+          <filereports>${file.reports}</filereports>
+          <jUnitClasses>${junit.execute}</jUnitClasses>
+        </configuration>
+        <executions>
+          <execution>
+            <id>test</id>
+            <goals>
+              <goal>test</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      
+
+      <!-- XML/SOAP plugins -->
+      <plugin>
+        <groupId>org.scalaxb</groupId>
+        <artifactId>scalaxb-maven-plugin</artifactId>
+        <version>${scalaxb.maven.plugin.version}</version>
+        <configuration>
+            <packageName>${scalaxb.maven.plugin.packagename}</packageName>
+        </configuration>
+        <executions>
+            <execution>
+                <id>scalaxb</id>
+                <goals>
+                    <goal>generate</goal>
+                </goals>
+            </execution>
+        </executions>
+      </plugin>
+      
+    </plugins>
+  </build>
+  <!-- End Package -->
+  
+</project>
