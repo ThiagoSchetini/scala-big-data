@@ -29,10 +29,12 @@
     
 
     <!-- XML/SOAP variables -->
-    <xml.version>2.11.0-M4</xml.version>
+    <scala.xml.version>1.0.2</scala.xml.version>
+    <scala.parser.combinators.version>1.0.2</scala.parser.combinators.version>
+    <net.databinder.dispach.version>0.11.3</net.databinder.dispach.version>
     <scalaxb.version>1.5.0</scalaxb.version>
     <scalaxb.maven.plugin.version>1.5.0</scalaxb.maven.plugin.version>
-    <scalaxb.maven.plugin.packagename>correios</scalaxb.maven.plugin.packagename>
+    <scalaxb.maven.plugin.packagename>wsdlconsumer</scalaxb.maven.plugin.packagename>
     
 
     <!-- Tests variables -->
@@ -68,21 +70,21 @@
     
     <!-- XML/SOAP libraries -->
     <dependency>
-        <groupId>org.scala-lang</groupId>
-        <artifactId>scala-xml</artifactId>
-        <version>${xml.version}</version>
+      <groupId>org.scala-lang.modules</groupId>
+      <artifactId>scala-xml_${scala.compat.version}</artifactId>
+      <version>${scala.xml.version}</version>
     </dependency>
-    
+
     <dependency>
-        <groupId>org.scalaxb</groupId>
-        <artifactId>scalaxb-maven-plugin</artifactId>
-        <version>${scalaxb.version}</version>
+      <groupId>org.scala-lang.modules</groupId>
+      <artifactId>scala-parser-combinators_${scala.compat.version}</artifactId>
+      <version>${scala.parser.combinators.version}</version>
     </dependency>
-    
+
     <dependency>
-        <groupId>org.scalaxb</groupId>
-        <artifactId>scalaxb_${scala.compat.version}</artifactId>
-        <version>${scalaxb.version}</version>
+      <groupId>net.databinder.dispatch</groupId>
+      <artifactId>dispatch-core_${scala.compat.version}</artifactId>
+      <version>${net.databinder.dispach.version}</version>
     </dependency>
 
     
@@ -147,7 +149,7 @@
       </plugin>
       
 
-      <!-- Tests plugins -->
+      <!-- Test plugins -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -177,7 +179,6 @@
           </execution>
         </executions>
       </plugin>
-      
 
       <!-- XML/SOAP plugins -->
       <plugin>
@@ -185,15 +186,15 @@
         <artifactId>scalaxb-maven-plugin</artifactId>
         <version>${scalaxb.maven.plugin.version}</version>
         <configuration>
-            <packageName>${scalaxb.maven.plugin.packagename}</packageName>
+          <packageName>${scalaxb.maven.plugin.packagename}</packageName>
         </configuration>
         <executions>
-            <execution>
-                <id>scalaxb</id>
-                <goals>
-                    <goal>generate</goal>
-                </goals>
-            </execution>
+          <execution>
+            <id>scalaxb</id>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
         </executions>
       </plugin>
       

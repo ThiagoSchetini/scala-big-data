@@ -1,7 +1,7 @@
 package com.scalabigdata.soap
 
-//import com.scalabigdata.soap.correios.CalcPrazo
-//import com.scalabigdata.soap.correios.`package`
+import com.scalabigdata.wsdlconsumer.CalcPrazo
+import com.scalabigdata.wsdlconsumer.`package`
 
 /*
  * A dammit SOAP consumer of brazilian correios service using SOAP
@@ -24,8 +24,8 @@ object SampleWSDL {
         <sCepDestino>14780060</sCepDestino>
       </shipTo>
 
-    //val parsedAddress = scalaxb.fromXML[CalcPrazo](addressXML)
-    //println(s"Rendered XML case class is :: ${parsedAddress}")
+    val parsedAddress = scalaxb.fromXML[CalcPrazo](addressXML)
+    println(s"Rendered XML case class is :: ${parsedAddress}")
 
   }
 
