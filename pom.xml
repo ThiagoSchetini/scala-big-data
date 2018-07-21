@@ -68,7 +68,7 @@
     </dependency>
 
     
-    <!-- XML/SOAP libraries -->
+    <!-- WSDL/SOAP/XML libraries -->
     <dependency>
       <groupId>org.scala-lang.modules</groupId>
       <artifactId>scala-xml_${scala.compat.version}</artifactId>
@@ -87,8 +87,15 @@
       <version>${net.databinder.dispach.version}</version>
     </dependency>
 
-    
-    <!-- Test libraries -->
+    <dependency>
+      <groupId>org.scalaxb</groupId>
+      <artifactId>scalaxb_${scala.compat.version}</artifactId>
+      <version>${scalaxb.version}</version>
+    </dependency>
+
+
+
+      <!-- Test libraries -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
