@@ -1,4 +1,4 @@
-package com.scalabigdata.basics
+package com.scalabigdata.syntax
 
 /*
  * trait is like an interface on JAVA
@@ -24,14 +24,14 @@ class IntIterator(len: Int) extends TraitIterator[Int] {
 
 }
 
-object IteratorTest {
-  def main(args: Array[String]): Unit = {
-    val iterator = new IntIterator(7)
-    println(iterator.next())
-    println(iterator.next())
-    println(iterator.next())
-    println(iterator.next())
-    println(iterator.next())
-    println(iterator.next())
-  }
+object IteratorTest extends App {
+
+  val iterator = new IntIterator(7)
+  println(iterator.next())
+  println(iterator.next())
+  println(iterator.next())
+  println(iterator.next())
+  println(iterator.next())
+  println(iterator.next())
+
 }
