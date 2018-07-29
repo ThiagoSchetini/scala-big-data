@@ -1,31 +1,67 @@
 package com.scalabigdata.syntax
 
+import scala.beans.BeanProperty
+
 
 /**
-  * It's called a Complex Class because it has parameters
-  *
-  * Constructor: implicit defined by class parameters
-  * Class Attributes: are the parameters
-  * Getters/Setters: encapsulated by the methods real, imaginary, special
+  * About getters and setters
   */
-class ComplexClass( // it is the basic constructor
-                    real: Double,                   // private val (implicit)
-                    imaginary: Double,              // private val (implicit)
-                    var special: Double,            // public (implicit)
-                    private var password: String,   // private variable
-                    securityCode: Int = 579111      // default value
+class SimpleClass {
+
+  // generates for JVM: private field + public getter and setter
+  var name:String = _
+
+  // generates for JVM: private field + public getter (only cause it's immutable!)
+  val identifier:Int = 1
+
+  // generates for JVM: private field + private getter + private setter
+  private var profession:String = _
+
+  // manual generating for JVM: redefining public getter and setter
+  private var privateNickname: String = _
+  def nickname = privateNickname                                   // Getter
+  def nickname_= (nickname: String) = privateNickname = nickname    // Setter: mutators, use “_=” appended
+
+  // no getters and setters generated at all for JVM !!!
+  private[this] var something:Int = 0
+
+  // generates for JVM: normal getter and setter (_=) + getXxxx + setXxxx
+  // Bean property makes the propertie compatible with the Java tools
+  @BeanProperty var anotherName:String = _
+
+  // generates for JVM: normal getter + getXxxx only because it's final
+  @BeanProperty val someConst:Int = 5
+
+}
+
+
+
+class ClassChildAccess {
+  private val number = 99
+
+  // can access a private getter because this object is of same class of this
+  def calculus(sameClass: ClassChildAccess): Int = sameClass.number + number
+}
+
+
+
+/**
+  * The Primary Constructor
+  * If there are no parameters after the class name, then the class has a primary constructor with no parameters
+  * If a parameter without val or var is used inside at least one method, it becomes a field
+  */
+class ComplexClass(
+                    real: Double,                       // not becomes a field (no get/set generated for JVM)
+                    val imaginary: Double,
+                    var special: Double,
+                    private var password: String,
+                    var securityCode: Int = 579111,
+                    @BeanProperty var some:String,      // have getSome() and setSome() generated to JVM
+                    @BeanProperty val other:String      // have only getOther generated to JVM (it's final)
                   ) {
 
   /*
-    real and imaginary are immutable (val), so they are protected anyway to avoid any changes
-    the methods above are like getters and setters
-   */
-  def acessReal = real
-  def acessImaginary = imaginary
-
-
-  /*
-    private password can only be acessed by this methods
+    private password can only be accessed by this logical methods
    */
   def giveMyPass(securityCode: Int) = {
     if (securityCode == this.securityCode)
@@ -34,10 +70,10 @@ class ComplexClass( // it is the basic constructor
       throw new Exception("Incorrect security code")
   }
 
-  def checkPass(password: String): Boolean = if (password == this.password) true else false
+  def checkMyPass(password: String): Boolean = if (password == this.password) true else false
 
-  def updatePass(oldPass: String, newPass: String): Boolean = {
-    if(checkPass(oldPass)) {
+  def updateMyPass(oldPass: String, newPass: String): Boolean = {
+    if(checkMyPass(oldPass)) {
       this.password = newPass
       true
     }
@@ -46,7 +82,7 @@ class ComplexClass( // it is the basic constructor
   }
 
 
-  // override is very simple
+  // override toString is very simple
   override def toString: String =
     s"""
        |real $real
@@ -56,23 +92,36 @@ class ComplexClass( // it is the basic constructor
 
 }
 
-object ComplexClassTest extends App {
 
-  val obj = new ComplexClass(1.5, 2.3, 5.5, "admin")
 
-  println("special value: " + obj.special)
-  obj.special = 3.3
-  println("updated special value: " + obj.special)
+object ClassBasicsTests extends App {
 
-  println("using other values: " + (obj.acessImaginary + obj.acessReal))
+  val simple = new SimpleClass
+  simple.name = "Thiago Schetini"
+  println(simple.name)
+  println(simple.identifier)
+  //simple.profession >>> not accessible
 
-  println("My password is: " + obj.giveMyPass(579111))
-  println("Checking my password " + obj.checkPass("admin"))
-  println(obj.updatePass("admin", "1234"))
-  println("My password is: " + obj.giveMyPass(579111))
 
-  // using the toString override
-  println("\n\n\nto string override")
-  println(obj.toString)
+
+  val child1 = new ClassChildAccess
+  val child2 = new ClassChildAccess
+  println(child1.calculus(child2))
+
+
+
+  val complex = new ComplexClass(1.5, 2.3, 5.5, "admin", some = "blah")
+
+  println("special value: " + complex.special)
+  complex.special = 3.3
+
+  println("updated special value: " + complex.special)
+
+  println("using other values: " + (complex.getImaginary + complex.getReal))
+
+  println("My password is: " + complex.giveMyPass(579111))
+  println("Checking my password " + complex.checkMyPass("admin"))
+  println(complex.updateMyPass("admin", "1234"))
+  println("My password is: " + complex.giveMyPass(579111))
 
 }

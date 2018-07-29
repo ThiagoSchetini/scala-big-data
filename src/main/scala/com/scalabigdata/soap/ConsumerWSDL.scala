@@ -21,6 +21,7 @@ import com.scalabigdata.soap.wsdlconsumer._
 
 object ConsumerWSDL extends App {
 
+
   val subject =
     <logon xmlns="urn:xtk:session">
       <sessiontoken></sessiontoken>
@@ -28,6 +29,7 @@ object ConsumerWSDL extends App {
       <strPassword></strPassword>
       <elemParameters></elemParameters>
     </logon>
+
 
   val shipTo = scalaxb.fromXML[Logon](subject)
   println(s"Rendered XML case class is :: ${shipTo}")
