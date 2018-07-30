@@ -10,7 +10,7 @@ class ClassGenericity[T] {
   private var contents: T = _
 
   def set(value: T){contents = value}
-  def get(): T = contents
+  def get: T = contents
 
 }
 
@@ -20,9 +20,9 @@ object TestGenericity extends App {
 
   val obj = new ClassGenericity[Int]
   obj.set(999)
-  println(obj.get())
+  println(obj.get)
 
   val obj2 = new ClassGenericity[Boolean]
-  println(obj2.get())
+  println(obj2.get)
 
 }

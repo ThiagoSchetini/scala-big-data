@@ -2,7 +2,7 @@ package com.scalabigdata.syntax
 
 
 /**
-  * only need to implement minus and equals
+  * only need to implement minus and equals and everything works =) !!!
   */
 trait CustomComparator {
   def < (that: Any): Boolean

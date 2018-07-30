@@ -51,7 +51,7 @@ class ClassChildAccess {
   * If a parameter without val or var is used inside at least one method, it becomes a field
   */
 class ComplexClass(
-                    real: Double,                       // not becomes a field (no get/set generated for JVM)
+                    _real: Double,                       // not becomes a field (no get/set generated for JVM)
                     val imaginary: Double,
                     var special: Double,
                     private var password: String,
@@ -59,6 +59,9 @@ class ComplexClass(
                     @BeanProperty var some:String,      // have getSome() and setSome() generated to JVM
                     @BeanProperty val other:String      // have only getOther generated to JVM (it's final)
                   ) {
+
+  // not good but, if we do not put anything it doesn't have get nor set (it's a getter)
+  def real = _real
 
   /*
     private password can only be accessed by this logical methods
@@ -110,14 +113,14 @@ object ClassBasicsTests extends App {
 
 
 
-  val complex = new ComplexClass(1.5, 2.3, 5.5, "admin", some = "blah")
+  val complex = new ComplexClass(1.5, 2.3, 5.5, "admin", some = "blah", other = "anything")
 
   println("special value: " + complex.special)
   complex.special = 3.3
 
   println("updated special value: " + complex.special)
 
-  println("using other values: " + (complex.getImaginary + complex.getReal))
+  println("using other values: " + (complex.imaginary + complex.real))
 
   println("My password is: " + complex.giveMyPass(579111))
   println("Checking my password " + complex.checkMyPass("admin"))
