@@ -5,6 +5,13 @@ package com.scalabigdata.syntax
   * only need to implement minus and equals and everything works =) !!!
   */
 trait CustomComparator {
+
+  /**
+    * Symbolic Methods
+    *
+    * "if you need to explain what the symbolic method does, then it should have a real, descriptive name rather than a symbols"
+    * https://docs.scala-lang.org/style/naming-conventions.html
+    */
   def < (that: Any): Boolean
   def <= (that: Any): Boolean = this < that || this == that
   def > (that: Any): Boolean = !(this <= that)
