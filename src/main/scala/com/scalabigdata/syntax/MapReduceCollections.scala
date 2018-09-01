@@ -63,11 +63,12 @@ object UsingMapReduce extends App {
 
 
   // fold left/right == merges the parameter value as it was the first one
-  val leftFolded = fiveMultiples.foldLeft(100)(_ + _)
-  println(leftFolded)
-  val rightFolded = fiveMultiples.foldRight(200)(_ + _)
-  println(rightFolded)
-
+  val leftFolded = fiveMultiples.foldLeft(5)(_ * _)
+  println(s"leftFolded: $leftFolded")
+  val rightFolded = fiveMultiples.foldRight(5)(_ * _)
+  println(s"rightFolded: $rightFolded")
+  val leftReduced = fiveMultiples.reduceRight(_ * _) // different of fold ... could be .product
+  println(s"leftReduced: $leftReduced")
 
   /**
     * scan left/right returns a Collection with the values applied on all elements
