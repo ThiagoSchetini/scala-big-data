@@ -80,7 +80,10 @@ object UsingMapReduce extends App {
   val normalScan = numbers.scan(10)(_ * _)
   println(normalScan)
   val scannedRight = numbers.scanRight(10)(_ * _)
+  println("!!! right starts with all alements and eliminates one of left on each iteration")
+  numbers.scanRight(10)((a, b) => {println(s"$a * $b = ${a * b}"); a * b})
   println(scannedRight)
+
 
 
   /**
