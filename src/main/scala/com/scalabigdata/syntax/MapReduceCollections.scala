@@ -17,9 +17,9 @@ class FunctionalScala {
   /**
     * findMax way A and B are the same thing
     */
-  val findMaxA: (Int, Int) => Int =  _ max _
+  val findMaxFirstWay: (Int, Int) => Int =  _ max _
 
-  val findMaxB = (x: Int, y: Int) => {
+  val findMaxSecondWay = (x: Int, y: Int) => {
     val winner = x max y
     println(s"compared $x to $y, $winner was larger")
     winner
@@ -50,11 +50,11 @@ object UsingMapReduce extends App {
   println(s"final sum: $sum")
 
 
-  // reduce left/right
-  val resultA = numbers.reduceLeft(functions.findMaxA)
-  println(resultA)
-  val resultB = numbers.reduceRight(functions.findMaxB)
-  println(resultB)
+  // reduce left/right !same result = 53
+  val resultA = numbers.reduceLeft(functions.findMaxFirstWay)
+  println(s"resultA: $resultA")
+  val resultB = numbers.reduceRight(functions.findMaxSecondWay)
+  println(s"resultB: $resultB")
 
   val longestName = people.reduceLeft((a, b) => if (a.length > b.length) a else b)
   println(longestName)
@@ -86,7 +86,7 @@ object UsingMapReduce extends App {
     * The order in which operations are performed on elements is unspecified and may be nondeterministic
     * .par = parallel
     */
-  numbers.par.reduce(functions.findMaxB)
+  numbers.par.reduce(functions.findMaxSecondWay)
 
 
   // concatenating some methods
