@@ -74,33 +74,6 @@
       <version>${kafka.version}</version>
     </dependency>
 
-    
-    <!-- WSDL/SOAP/XML libraries -->
-    <dependency>
-      <groupId>org.scala-lang.modules</groupId>
-      <artifactId>scala-xml_${scala.compat.version}</artifactId>
-      <version>${scala.xml.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.scala-lang.modules</groupId>
-      <artifactId>scala-parser-combinators_${scala.compat.version}</artifactId>
-      <version>${scala.parser.combinators.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>net.databinder.dispatch</groupId>
-      <artifactId>dispatch-core_${scala.compat.version}</artifactId>
-      <version>${net.databinder.dispach.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.scalaxb</groupId>
-      <artifactId>scalaxb_${scala.compat.version}</artifactId>
-      <version>${scalaxb.version}</version>
-    </dependency>
-
-
 
       <!-- Test libraries -->
     <dependency>
