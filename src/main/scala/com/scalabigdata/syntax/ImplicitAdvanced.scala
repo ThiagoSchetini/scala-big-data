@@ -13,6 +13,8 @@ class Method {
 
 
 trait M {
+
+  // says that "M cannot be mixed into a concrete class that does not also extend Method"
   this: Method =>
 
 
