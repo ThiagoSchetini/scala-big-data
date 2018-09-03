@@ -28,7 +28,7 @@ class DoubleMonoid extends Monoid[Double] {
 }
 
 
-class ImplicitAdvanced {
+class MyImplicit {
 
   /**
     * recursive sum() call
@@ -37,7 +37,7 @@ class ImplicitAdvanced {
 }
 
 
-object ImplicitAdvancedTest extends App {
+object MyImplicitTest extends App {
 
   /**
     * implicit values necessary here on this scope
@@ -45,7 +45,7 @@ object ImplicitAdvancedTest extends App {
   implicit val intMonoid: Monoid[Int] = new IntMonoid
   implicit val stringMonoid: Monoid[String] = new StringMonoid
 
-  val imp = new ImplicitAdvanced
+  val imp = new MyImplicit
   println(imp.sum(List(1,3,5,7)))
   println(imp.sum(List[Int]()))
   println(imp.sum(List("zeta", "beta", "alpha")))
