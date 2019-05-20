@@ -4,7 +4,7 @@ package com.scalabigdata.syntax
 class X(val i: Int)
 class Y(val i: Int)
 
-// companion object of X
+// companion object of X (an object with the same name of the class)
 object X { implicit def xx: X = new X(1) }
 
 
@@ -43,37 +43,35 @@ trait SM extends M {
 
 object TestThis extends App {
 
-  // implicit resolved from companion object of X
+  // implicit resolved from companion object of X = 1
   new Method().x
 
-  // explicit applied so that value is used
+  // explicit applied so that value is used = 33
   new Method().x(new X(33))
 
-  // will never use implicit inside M. implicit resolved from companion object of X
+  // will never use implicit inside M. implicit resolved from companion object of X = 1
   (new Method with M).x
 
-  // local scope overrides companion object implicit
+  // local scope overrides companion object implicit = 30 and 30 again
   implicit def x = new X(30)
   new Method().x
-
-  // explicit applied so that value is used
-  new Method().x(new X(5))
-
-  // local scope overrides companion object implicit
   (new Method with M).x
+
+  // again, explicit applied so that value is used = 5
+  new Method().x(new X(5))
 
 
   /**
     * now, using the scope of the traits
     */
 
-  // testx is defined within M so the implicits within M overrides the companion object implicit
+  // testx is defined within M so the implicits within M overrides the companion object implicit = 11
   (new Method with M).testx
 
-  // testx is within M (not SM) so the implicit within M is used
+  // testx is within M (not SM) so the implicit within M is used = 11
   (new Method with SM).testx
 
-  // testx2 is within SM so the implicit within SM overrides the implicit in M and the companion object
+  // testx2 is within SM so the implicit within SM overrides the implicit in M and the companion object = 22
   (new Method with SM).testx2
 
 }
