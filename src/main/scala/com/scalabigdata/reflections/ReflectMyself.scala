@@ -1,7 +1,5 @@
 package com.scalabigdata.reflections
 
-import org.apache.hadoop.fs.Path
-
 import scala.collection.mutable
 import scala.reflect.runtime.universe._
 import scala.util.control.Breaks._
@@ -14,9 +12,6 @@ object Executor extends App {
   val obj = ReflectMyselfProps(name, props)
   val result1 = obj.validateMe
   println(s"test1 validation result: $result1")
-
-  println(obj.toString)
-
 
   /* test 2 using try/catch to creation */
   try {
@@ -51,6 +46,7 @@ object Executor extends App {
   println(s"test5 validation result: $result5")
 
 
+  /* serialize test */
   println(s"\nSerializedCSV:")
   println(s"${obj.serializeToCSV}")
 
