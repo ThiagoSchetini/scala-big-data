@@ -39,7 +39,7 @@
     
 
     <!-- Tests variables -->
-    <junit.version>4.12</junit.version>
+    <junit.version>4.13.1</junit.version>
     <scalatest.version>3.0.5</scalatest.version>
     <spec2.version>4.2.0</spec2.version>
     <maven.surefire.plugin.version>2.21.0</maven.surefire.plugin.version>
